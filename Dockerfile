@@ -29,6 +29,14 @@ RUN apt-get update && \
     apt-get install -y clang-format-18 && \
     ln -s /usr/bin/clang-format-18 /usr/bin/clang-format
 
+# Устанавливаем Google Test
+RUN apt-get update && apt-get install -y libgtest-dev && \
+    cd /usr/src/gtest && \
+    cmake CMakeLists.txt && \
+    make && \
+    cp lib/*.a /usr/lib && \
+    ln -s /usr/include/gtest /usr/local/include/gtest
+
 # Устанавливаем Oh My Zsh без переключения оболочки
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
